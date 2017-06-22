@@ -36,6 +36,10 @@ module.exports = function(env) {
     devtool: 'source-map',
     entry: entry,
     plugins: plugins,
+    devServer: {
+      historyApiFallback: true,
+      contentBase: './',
+    },
     module: {
       rules: [
         {

@@ -1,24 +1,21 @@
+import {ConnectedRouter, push, routerMiddleware, routerReducer} from 'react-router-redux';
+import {Route, Switch} from 'react-router';
+import {applyMiddleware, combineReducers, createStore} from 'redux';
+
+import {AUTH_USER} from './actions/types';
+import App from './components/app';
+import Dashboard from './components/Dashboard';
+import Home from './components/pages/Home';
+import Login from './components/Auth/login';
+import NotFoundPage from './components/pages/PageNotFound';
+import {Provider} from 'react-redux';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {Provider} from 'react-redux';
-import {createStore, combineReducers, applyMiddleware} from 'redux';
+import Register from './components/Auth/register';
+import RequireAuth from './components/Auth/requireAuth';
 import createHistory from 'history/createBrowserHistory';
-import {Route} from 'react-router';
-import reduxThunk from 'redux-thunk';
-// import routes from './routes';
 import reducers from './reducers';
-import {AUTH_USER} from './actions/types';
-import {ConnectedRouter, routerReducer, routerMiddleware, push} from 'react-router-redux';
-
-import Home from './components/pages/Home';
-import App from './components/app';
-import NotFoundPage from './components/pages/PageNotFound';
-import Register from './components/auth/register';
-import Login from './components/auth/login';
-import Dashboard from './components/dashboard';
-import RequireAuth from './components/auth/requireAuth';
-
-const createStoreWithMiddleware = applyMiddleware(reduxThunk)(createStore);
+import reduxThunk from 'redux-thunk';
 
 // Create a history of your choosing (we're using a browser history in this case)
 const history = createHistory();
@@ -40,7 +37,14 @@ ReactDOM.render(
   <Provider store={store}>
     {/* ConnectedRouter will use the store from Provider automatically */}
     <ConnectedRouter history={history}>
-      <Route exact path="/" component={Home} />
+      <Switch>
+        <Route exact path="/" component={Home} />
+        <Route path="/register" component={Register} />
+        <Route path="/login" component={Register} />
+        <Route path="/dashboard" component={Dashboard} />
+        {/* Error Page */}
+        <Route component={NotFoundPage} />
+      </Switch>
     </ConnectedRouter>
   </Provider>,
   document.getElementById('app')
