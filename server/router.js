@@ -32,6 +32,20 @@ module.exports = app => {
   // Login route
   authRoutes.post('/login', requireLogin, AuthenticationController.login);
 
+  // Test protected route
+  apiRoutes.get('/protected', requireAuth, (req, res) => {
+    res.send({content: 'The protected test route is functional!'});
+  });
+
+  apiRoutes.get(
+    '/admins-only',
+    requireAuth,
+    AuthenticationController.roleAuthorization('Admin'),
+    (req, res) => {
+      res.send({content: 'Admin dashboard is working.'});
+    }
+  );
+
   // Set url for API group routes
   app.use('/api', apiRoutes);
 };

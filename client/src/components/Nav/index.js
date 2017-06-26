@@ -1,11 +1,24 @@
 import React from 'react';
+import {logoutUser} from '../../actions';
+import {connect} from 'react-redux';
 
-export default class App extends React.Component {
+class Nav extends React.Component {
+  constructor(props) {
+    super(props);
+    console.log(this.props.dispatch);
+  }
+
   render() {
     return (
-      <div style={{textAlign: 'center'}}>
-        <h1>Hello World 1</h1>
+      <div className="Nav">
+        <button type="button" onClick={this.doLogout.bind(this)}>Logout</button>
       </div>
     );
   }
+  doLogout = () => {
+    console.log('try to logout');
+    this.props.dispatch(logoutUser());
+  };
 }
+
+export default connect()(Nav);
