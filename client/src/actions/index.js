@@ -1,5 +1,4 @@
 import axios from 'axios';
-import {browserHistory} from 'react-router';
 import config from './../config';
 
 import Cookies from 'universal-cookie';
@@ -37,21 +36,18 @@ export function errorHandler(dispatch, error, type) {
 }
 
 export function loginUser({email, password}) {
-  console.log('logging in');
   return function(dispatch) {
-    console.log(dispatch, 'dispatch exists');
     axios
       .post(`${API_URL}/auth/login`, {email, password})
       .then(response => {
+        console.log(response, 'info');
         cookie.set('token', response.data.token, {path: '/'});
         cookie.set('user', response.data.user, {path: '/'});
         dispatch({type: AUTH_USER});
 
-        console.log(response, 'whats in the box');
         window.location.href = `${CLIENT_ROOT_URL}/dashboard`;
       })
       .catch(error => {
-        console.log(error, 'whats the error');
         errorHandler(dispatch, error.response, AUTH_ERROR);
       });
   };
@@ -74,7 +70,6 @@ export function registerUser({email, firstName, lastName, password}) {
 
 export function logoutUser() {
   return function(dispatch) {
-    console.log(dispatch, 'yea');
     dispatch({type: UNAUTH_USER});
     cookie.remove('token', {path: '/'});
 

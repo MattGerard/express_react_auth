@@ -10,7 +10,6 @@ import NotFoundPage from './PageNotFound';
 
 export default class ContentPage extends React.Component {
   render() {
-    console.log(this.props, 'props');
     return (
       <div className="wrapper">
         <Nav />

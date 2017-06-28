@@ -10,14 +10,18 @@ const form = reduxForm({
 
 class Login extends Component {
   handleFormSubmit(formProps) {
-    this.props.loginUser(formProps);
+    this.props.loginUser(formProps).then(() => {
+      console.log('ASYNC WTFFFF');
+    });
   }
 
   renderAlert() {
     if (this.props.errorMessage) {
       return (
         <div>
-          <span><strong>Error!</strong> {this.props.errorMessage}</span>
+          <span>
+            <strong>Error!</strong> {this.props.errorMessage}
+          </span>
         </div>
       );
     }
@@ -38,7 +42,9 @@ class Login extends Component {
             <label>Password</label>
             <Field name="password" className="form-control" component="input" type="password" />
           </div>
-          <button type="submit" className="btn btn-primary">Login</button>
+          <button type="submit" className="btn btn-primary">
+            Login
+          </button>
         </form>
       </div>
     );

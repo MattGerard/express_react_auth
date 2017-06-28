@@ -5,11 +5,10 @@ import {connect} from 'react-redux';
 class Dashboard extends React.Component {
   constructor(props) {
     super(props);
-
-    this.props.protectedTest();
   }
 
   render() {
+    console.log(this.props, 'props');
     return (
       <div style={{textAlign: 'center'}}>
         <h1>DASHBOARD</h1>
@@ -19,8 +18,4 @@ class Dashboard extends React.Component {
   }
 }
 
-function mapStateToProps(state) {
-  return {content: state.auth.content};
-}
-
-export default connect(mapStateToProps, actions)(Dashboard);
+export default connect()(Dashboard);

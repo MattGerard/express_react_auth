@@ -11,7 +11,11 @@ const form = reduxForm({
 const renderField = field =>
   <div>
     <input className="form-control" {...field.input} />
-    {field.touched && field.error && <div className="error">{field.error}</div>}
+    {field.touched &&
+      field.error &&
+      <div className="error">
+        {field.error}
+      </div>}
   </div>;
 
 function validate(formProps) {
@@ -45,7 +49,9 @@ class Register extends Component {
     if (this.props.errorMessage) {
       return (
         <div>
-          <span><strong>Error!</strong> {this.props.errorMessage}</span>
+          <span>
+            <strong>Error!</strong> {this.props.errorMessage}
+          </span>
         </div>
       );
     }
@@ -84,14 +90,15 @@ class Register extends Component {
             />
           </div>
         </div>
-        <button type="submit" className="btn btn-primary">Register</button>
+        <button type="submit" className="btn btn-primary">
+          Register
+        </button>
       </form>
     );
   }
 }
 
 function mapStateToProps(state) {
-  console.log(state, 'STATE');
   return {
     errorMessage: state.auth.error,
     message: state.auth.message,

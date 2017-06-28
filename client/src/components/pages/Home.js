@@ -1,11 +1,21 @@
-import React from 'react';
+import * as actions from '../../actions';
+import React, {Component} from 'react';
+import {connect} from 'react-redux';
 
-export default class Home extends React.Component {
+class Home extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
   render() {
+    console.log(this.props, 'props');
     return (
       <div style={{textAlign: 'center'}}>
-        <h1>Hello World 1</h1>
+        <h1>Home</h1>
+        {this.props.content}
       </div>
     );
   }
 }
+
+export default connect()(Home);
