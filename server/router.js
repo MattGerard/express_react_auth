@@ -2,7 +2,7 @@ const AuthenticationController = require('./controllers/authentication');
 const express = require('express');
 const passportService = require('./config/passport');
 const passport = require('passport');
-
+const passportTwitch = require('./auth/twitch');
 // Middleware to require login/auth
 const requireAuth = passport.authenticate('jwt', {session: false});
 const requireLogin = passport.authenticate('local', {session: false});
@@ -32,19 +32,39 @@ module.exports = app => {
   // Login route
   authRoutes.post('/login', requireLogin, AuthenticationController.login);
 
+  // PASSPORT LOGIN TWITCH
+  authRoutes.get('/twitch', passportTwitch.authenticate('twitch', {scope: ['user_read']}));
+
+  authRoutes.get('/twitch/callback', (req, res) => {
+    console.log(req, res, 'infooooo');
+    res.send(`
+<html>
+  <head></head>
+  <script>
+    try {
+      console.log(window.location.hash, 'hash');
+
+    } catch(err) {
+      console.error(err);
+    }
+  </script>
+</html>
+`);
+  });
+
   // Test protected route
   apiRoutes.get('/protected', requireAuth, (req, res) => {
     res.send({content: 'The protected test route is functional!'});
   });
 
-  apiRoutes.get(
-    '/admins-only',
-    requireAuth,
-    AuthenticationController.roleAuthorization('Admin'),
-    (req, res) => {
-      res.send({content: 'Admin dashboard is working.'});
-    }
-  );
+  // apiRoutes.get(
+  //   '/admins-only',
+  //   requireAuth,
+  //   AuthenticationController.roleAuthorization('Admin'),
+  //   (req, res) => {
+  //     res.send({content: 'Admin dashboard is working.'});
+  //   }
+  // );
 
   // Set url for API group routes
   app.use('/api', apiRoutes);

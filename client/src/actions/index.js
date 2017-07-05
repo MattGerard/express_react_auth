@@ -5,10 +5,13 @@ import Cookies from 'universal-cookie';
 
 import {AUTH_USER, AUTH_ERROR, UNAUTH_USER, PROTECTED_TEST} from './types';
 
+import _openPopup from '../common/utils/popup';
+
 export const API_URL = config.apiUrl;
 export const CLIENT_ROOT_URL = config.clientUrl;
 
 const cookie = new Cookies();
+const openPopup = _openPopup;
 
 export function errorHandler(dispatch, error, type) {
   let errorMessage = '';
@@ -74,6 +77,18 @@ export function logoutUser() {
     cookie.remove('token', {path: '/'});
 
     window.location.href = CLIENT_ROOT_URL + '/login';
+  };
+}
+
+export function twitchAuth() {
+  return function(dispatch) {
+    // dispatch({type: UNAUTH_USER});
+    // cookie.remove('token', {path: '/'});
+    // window.location.href = CLIENT_ROOT_URL + '/login';
+
+    const url =
+      'https://api.twitch.tv/kraken/oauth2/authorize?client_id=6l5vomr1m1v2utw9kzsj9ka8a&redirect_uri=http://127.0.0.1:3000/api/auth/twitch/callback&response_type=token&scope=user_read';
+    openPopup('TWITCH', url, '_blank');
   };
 }
 

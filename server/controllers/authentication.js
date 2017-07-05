@@ -12,11 +12,10 @@ function generateToken(user) {
 // Set user info from request
 function setUserInfo(request) {
   return {
-    _id: request._id,
-    firstName: request.profile.firstName,
-    lastName: request.profile.lastName,
+    _id: request.uid,
+    username: request.username,
     email: request.email,
-    role: request.role,
+    admin: request.admin,
   };
 }
 
@@ -24,7 +23,7 @@ function setUserInfo(request) {
 // Login Route
 //========================================
 exports.login = function(req, res, next) {
-  console.log('something happening here??');
+  console.log('something happening here??', req);
   let userInfo = setUserInfo(req.user);
 
   res.status(200).json({

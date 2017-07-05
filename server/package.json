@@ -8,15 +8,21 @@
   },
   "dependencies": {
     "bcrypt-nodejs": "^0.0.3",
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.17.2",
     "crypto": "^0.0.3",
+    "dotenv": "^4.0.0",
     "express": "^4.15.3",
     "jsonwebtoken": "^7.4.1",
+    "knex": "^0.13.0",
+    "mailgun-js": "^0.11.2",
     "mongoose": "^4.10.7",
     "morgan": "^1.8.2",
     "nodemon": "^1.11.0",
     "passport": "^0.3.2",
     "passport-jwt": "^2.2.1",
-    "passport-local": "^1.0.0"
+    "passport-local": "^1.0.0",
+    "passport-twitch": "^1.0.3",
+    "pg": "^6.4.0"
   }
 }

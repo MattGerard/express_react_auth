@@ -1,5 +1,4 @@
 import * as actions from '../../actions';
-import {logoutUser} from '../../actions';
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
@@ -15,12 +14,19 @@ class Nav extends React.Component {
         <button type="button" onClick={this.doLogout.bind(this)}>
           Logout
         </button>
+        <button type="button" onClick={this.doTwitchlogin.bind(this)}>
+          TWITCH
+        </button>
       </div>
     );
   }
 
   doLogout = () => {
-    this.props.dispatch(logoutUser());
+    this.props.dispatch(actions.logoutUser());
+  };
+
+  doTwitchlogin = () => {
+    this.props.dispatch(actions.twitchAuth());
   };
 }
 

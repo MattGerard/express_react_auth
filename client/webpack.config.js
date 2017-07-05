@@ -89,5 +89,8 @@ module.exports = function(env) {
       filename: isProduction ? 'bundle.[hash:12].min.js' : 'bundle.js',
       chunkFilename: 'bundle-[name]-[chunkhash].js',
     },
+    node: {
+      fs: 'empty',
+    },
   };
 };
